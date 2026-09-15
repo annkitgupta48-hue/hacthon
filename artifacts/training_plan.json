@@ -1,0 +1,47 @@
+{
+  "project_root": "C:\\Users\\Ankit\\Desktop\\3rd live working\\hacthon",
+  "datasets": {
+    "gesture": {
+      "path": "C:\\Users\\Ankit\\Desktop\\3rd live working\\hacthon\\datasets\\gesture",
+      "sources": [
+        "HaGRID",
+        "ASL Alphabet",
+        "EgoGesture",
+        "NVGesture",
+        "custom_webcam"
+      ],
+      "task": "classification"
+    },
+    "expression": {
+      "path": "C:\\Users\\Ankit\\Desktop\\3rd live working\\hacthon\\datasets\\expression",
+      "sources": [
+        "FER2013",
+        "CK+",
+        "RAF-DB",
+        "AffectNet",
+        "custom_webcam"
+      ],
+      "task": "classification"
+    }
+  },
+  "model_strategy": {
+    "gesture": "MediaPipe landmarks + MobileNetV2 or EfficientNet fine-tune",
+    "expression": "aligned face crop + EfficientNet or ResNet fine-tune",
+    "fusion": "rule-based + temporal sequence model (GRU/LSTM/Transformer)"
+  },
+  "preprocessing": [
+    "normalize image size",
+    "face alignment and crop",
+    "landmark extraction",
+    "confidence thresholding",
+    "temporal smoothing"
+  ],
+  "training_steps": [
+    "split dataset into train/val/test",
+    "load pretrained backbone",
+    "replace classifier head",
+    "fine-tune with low learning rate",
+    "evaluate top-1 accuracy",
+    "export weights to models/ directory"
+  ]
+}

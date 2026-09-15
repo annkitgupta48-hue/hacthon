@@ -1,0 +1,27 @@
+{
+  "thumbs_up": {
+    "label": "Thumbs Up",
+    "intent": "positive_confirmation",
+    "message": "Yes, that's good!"
+  },
+  "thumbs_down": {
+    "label": "Thumbs Down",
+    "intent": "negative_confirmation",
+    "message": "No, not good."
+  },
+  "wave": {
+    "label": "Wave",
+    "intent": "hello",
+    "message": "Hello!"
+  },
+  "stop": {
+    "label": "Stop Gesture",
+    "intent": "please_stop",
+    "message": "Please stop."
+  },
+  "pointing": {
+    "label": "Pointing",
+    "intent": "look_there",
+    "message": "Look there."
+  }
+}
