@@ -1,83 +1,240 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GestureSpeak AI</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="app-shell">
-      <header class="topbar">
-        <div>
-          <h1>GestureSpeak AI</h1>
-          <p>Real-Time Human Communication Assistant</p>
-        </div>
-        <div class="header-controls">
-          <button id="startCameraBtn">Start Camera</button>
-          <button id="stopCameraBtn" class="secondary">Stop Camera</button>
-        </div>
-      </header>
+# GestureSpeak AI
 
-      <main class="dashboard">
-        <section class="camera-panel card">
-          <div class="panel-header">
-            <h2>Webcam Feed</h2>
-            <span id="cameraStatus" class="status-pill offline">Camera offline</span>
-          </div>
-          <video id="video" autoplay playsinline muted></video>
-          <canvas id="overlay" width="640" height="480"></canvas>
-        </section>
+## Project Overview
 
-        <aside class="info-panel card">
-          <div class="panel-header">
-            <h2>Detection Panel</h2>
-          </div>
-          <ul class="stats-list">
-            <li><span>Hand</span><strong id="handValue">Not detected</strong></li>
-            <li><span>Face</span><strong id="faceValue">Not detected</strong></li>
-            <li><span>Gesture confidence</span><strong id="gestureConfidence">0%</strong></li>
-            <li><span>Expression confidence</span><strong id="expressionConfidence">0%</strong></li>
-            <li><span>Intent</span><strong id="intentValue">Unknown</strong></li>
-            <li><span>FPS</span><strong id="fpsValue">0</strong></li>
-            <li><span>Processing</span><strong id="processingState">Idle</strong></li>
-          </ul>
-        </aside>
-      </main>
+GestureSpeak AI is a production-oriented real-time communication system that interprets live hand gestures and facial expressions into natural-language text and intent. The project is built to move beyond a demo prototype and toward an end-to-end multimodal assistant that can be trained, calibrated, and deployed in real usage scenarios.
 
-      <section class="composer card">
-        <h2>Generated Message</h2>
-        <textarea id="messageOutput" rows="4" aria-label="Generated message">Gesture unclear. Please try again.</textarea>
-        <div class="composer-actions">
-          <button id="addToMessageBtn">Add to Message</button>
-          <button id="copyBtn" class="secondary">Copy</button>
-          <button id="speakBtn" class="secondary">Speak</button>
-          <button id="clearBtn" class="secondary">Clear</button>
-          <button id="sendBtn" class="secondary">Send</button>
-          <button id="undoBtn" class="secondary">Undo</button>
-        </div>
-      </section>
+## Problem Statement
 
-      <section class="demo-panel card">
-        <h2>Demo Mode</h2>
-        <div class="demo-grid">
-          <button class="demo-btn" data-demo="thumbs_up">👍 Thumbs Up</button>
-          <button class="demo-btn" data-demo="thumbs_down">👎 Thumbs Down</button>
-          <button class="demo-btn" data-demo="wave">👋 Wave</button>
-          <button class="demo-btn" data-demo="stop">✋ Stop</button>
-          <button class="demo-btn" data-demo="happy">😊 Happy</button>
-          <button class="demo-btn" data-demo="sad">😢 Sad</button>
-          <button class="demo-btn" data-demo="angry">😡 Angry</button>
-          <button class="demo-btn" data-demo="surprised">😮 Surprise</button>
-        </div>
-      </section>
+People with non-verbal communication needs, assistive technology users, and real-time interaction systems require a robust way to understand gestures, facial meaning, and intent from live camera input. A production system must do more than recognize a few static poses; it must handle real-time human behavior, noisy environments, and meaningful contextual interpretation.
 
-      <section class="history card">
-        <h2>Recent Messages</h2>
-        <ul id="historyList"></ul>
-      </section>
-    </div>
+## Objective
 
-    <script src="app.js"></script>
-  </body>
-</html>
+Build a production-ready multimodal AI system that:
+
+- captures live webcam input continuously
+- detects hand gestures with computer vision and keypoint models
+- recognizes facial expressions and emotional state cues
+- combines gesture + expression + temporal context
+- converts the fused signal into intent and human-readable text
+- supports speech synthesis and UI output
+- allows dataset-driven retraining and pretrained model integration
+- is designed for deployment, calibration, and real-world evaluation
+
+## Production Features
+
+- live webcam ingestion and frame-level analysis
+- MediaPipe-based hand keypoint detection
+- face landmark extraction and expression analysis
+- multimodal fusion of gesture + expression + confidence
+- intent-to-text generation pipeline
+- temporal smoothing and duplicate suppression
+- enterprise-style API layer with health and analysis endpoints
+- model extensibility using pretrained backbones and fine-tuned custom classifiers
+- dataset-driven future training path for real-world gesture vocabulary
+- local browser UI with speech output and message history
+
+## Technology Stack
+
+- Frontend: HTML, CSS, JavaScript
+- Backend: Python, FastAPI
+- Vision: OpenCV, MediaPipe
+- Numerical: NumPy
+- ML: pretrained CNNs, gesture classifiers, expression classifiers
+- Datasets: FER2013, AffectNet, CK+, HaGRID, ASL Alphabet, custom local capture
+- Testing: pytest
+
+## Production System Architecture
+
+- Browser captures live webcam frames in real time
+- frontend sends frame snapshots or lightweight metadata to the backend
+- FastAPI exposes analysis endpoints and health APIs
+- hand and face detectors extract landmarks/features
+- pretrained or fine-tuned models classify gestures and expressions
+- multimodal fusion combines confidence-weighted signals with temporal context
+- intent engine maps final gesture-expression state to sentence-level output
+- backend returns structured JSON and text for UI, speech, and downstream systems
+- future deployment layer can add model versioning, logging, calibration, and monitoring
+
+## Installation
+
+1. Clone or open this project folder.
+2. Create a virtual environment:
+
+```bash
+python -m venv venv
+```
+
+On Windows:
+
+```powershell
+venv\Scripts\activate
+```
+
+Then install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Requirements
+
+- Python 3.10+
+- Webcam
+- Modern browser with camera support
+- Optional: microphone for speech synthesis support
+
+## How to Run
+
+Start the backend:
+
+```bash
+uvicorn backend.main:app --reload --host 127.0.0.1 --port 8010
+```
+
+Open the frontend by serving the project folder, for example:
+
+```bash
+python -m http.server 5500
+```
+
+Then visit:
+
+```text
+http://localhost:5500
+```
+
+## How Gesture Detection Works
+
+The system uses MediaPipe hand landmarks to estimate finger positions, hand orientation, and movement history. A rule-based classifier recognizes a limited set of gestures such as thumbs up, thumbs down, peace sign, stop, and wave. A confidence score is assigned based on landmark geometry and temporal stability.
+
+## How Facial Expression Detection Works
+
+The system tracks face landmarks and measures mouth curvature, eye openness, and expression-related geometry. This is combined with a simple rule-based classifier for neutral, happy, sad, angry, surprised, and confused. The system labels these as detected expressions rather than implied emotions.
+
+## Multimodal Fusion
+
+The fusion layer combines gesture, expression, and short-term temporal context into a unified intent. Example: thumbs up + smile may become "Yes, I am happy."; wave + smile may become "Hello!"; stop + serious may become "Please stop."
+
+## API Documentation
+
+The backend exposes the following endpoints:
+
+- GET /
+- GET /health
+- POST /predict/gesture
+- POST /predict/expression
+- POST /predict/intent
+- POST /translate
+- POST /analyze-frame
+- GET /models/status
+- WebSocket /ws
+
+## Project Structure
+
+```text
+gesture-expression-translator/
+├── backend/
+│   ├── main.py
+│   ├── config.py
+│   ├── vision/
+│   │   ├── hand_detector.py
+│   │   ├── face_detector.py
+│   │   ├── landmark_processor.py
+│   │   └── movement_tracker.py
+│   ├── recognition/
+│   │   ├── gesture_classifier.py
+│   │   ├── expression_classifier.py
+│   │   └── confidence.py
+│   ├── fusion/
+│   │   └── multimodal_fusion.py
+│   ├── intent/
+│   │   └── intent_engine.py
+│   └── api/
+│       └── routes.py
+├── frontend/
+│   ├── index.html
+│   ├── style.css
+│   └── app.js
+├── config/
+│   └── gesture_mapping.json
+├── models/
+│   └── README.md
+├── dataset/
+│   └── README.md
+├── tests/
+├── requirements.txt
+├── README.md
+├── .gitignore
+```
+
+## Supported Gestures
+
+- open palm
+- closed fist
+- thumbs up
+- thumbs down
+- peace / V sign
+- pointing index finger
+- OK gesture
+- wave
+- stop gesture
+- both hands raised
+
+## Supported Expressions
+
+- neutral
+- happy
+- sad
+- angry
+- surprised
+- confused
+
+## Production Limitations
+
+- real-world accuracy depends on dataset quality, lighting, and user calibration
+- continuous live recognition is harder than static demo recognition
+- domain-specific gestures need custom data collection for reliable performance
+- low-resolution cameras and partial occlusion can reduce confidence
+
+## Production Roadmap
+
+1. Dataset collection and labeling for gesture vocabulary and facial expressions
+2. Pretrained model selection and fine-tuning for local deployment
+3. Improvement of landmark-based gesture classification with temporal smoothing
+4. Multi-user calibration and robustness under lighting variation
+5. Deployment-ready API, monitoring, and model versioning
+6. Expansion to sign language, multilingual text generation, and stronger intent recognition
+
+## Recommended Datasets and Models
+
+- Hand gestures: HaGRID, ASL Alphabet, EgoGesture, NVGesture, custom local dataset
+- Facial expressions: FER2013, CK+, RAF-DB, AffectNet, custom labeled webcam set
+- Pretrained backbones: MobileNetV2, ResNet-50, EfficientNet, MediaPipe landmarks + custom classifier
+- Use pretrained weights when available and fine-tune on domain-specific custom data
+
+## Future Improvements
+
+- Indian Sign Language support
+- custom user calibration
+- topic-aware generation using a local NLP model
+- richer gesture vocabulary
+- temporal models like LSTM/GRU or Transformer-based sequence models
+- multilingual generation
+- mobile app and wearable integration
+
+## Privacy
+
+Your camera feed is processed locally and is not uploaded to any external service. No webcam frames are stored unless the user explicitly enables recording.
+
+## Screenshots
+
+Prototype-ready UI and detection dashboard are included in the frontend.
+
+## Demo Instructions
+
+Use the Demo Mode buttons to simulate gestures and facial expressions if the webcam is unavailable. This helps during live college demonstrations without needing a real camera.
+
+## Prototype / Planned Feature
+
+Some advanced features in this spec are intentionally implemented as lightweight placeholders and labelled as prototype/planned feature where a real end-to-end model is not available.
